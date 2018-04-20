@@ -17,11 +17,11 @@ def load_datasets(dataset_name):
         gene_dataset_train, gene_dataset_test = SyntheticDataset(), SyntheticDataset()
     elif dataset_name == 'cortex':
         gene_dataset_train, gene_dataset_test = CortexDataset(type="train"), CortexDataset(type="test")
+    elif dataset_name == 'cbmc':
+        gene_dataset_train, gene_dataset_test = CbmcDataset(type="train"), CbmcDataset(type="test")
     elif dataset_name == 'brain_large':
         gene_dataset = BrainLargeDataset()
         gene_dataset_train, gene_dataset_test = gene_dataset, gene_dataset  # Return same object for now
-    elif dataset_name == 'cbmc':
-        gene_dataset_train, gene_dataset_test = CbmcDataset(type="train"), CbmcDataset(type="test")
     elif dataset_name.endswith('.npy'):
         data = np.load(dataset_name)
         train_data, test_data = GeneExpressionDataset.train_test_split(data)
@@ -29,6 +29,3 @@ def load_datasets(dataset_name):
     else:
         raise "No such dataset available"
     return gene_dataset_train, gene_dataset_test
-
-
-load_datasets("cortex")

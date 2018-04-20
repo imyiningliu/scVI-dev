@@ -9,13 +9,11 @@ import pandas as pd
 Without protein information. 
 """
 
-filename = "GSE100866_CBMC_8K_13AB_10X-RNA_umi.csv.gz"
-
 
 class CbmcDataset(GeneExpressionDataset):
     def __init__(self, type='train'):
         self.save_path = 'data/'
-        self.download_name = 'expression.bin'
+        self.download_name = "GSE100866_CBMC_8K_13AB_10X-RNA_umi.csv.gz"
         self.data_filename = 'cbmc_expression_%s.npy' % type
         self.download_and_preprocess()
         super(CbmcDataset, self).__init__([sp_sparse.csr_matrix(np.load(self.save_path + self.data_filename))])
@@ -28,14 +26,14 @@ class CbmcDataset(GeneExpressionDataset):
         if not os.path.exists(self.save_path):
             os.makedirs(self.save_path)
 
-        with urllib.request.urlopen(url) as response, open(self.save_path + filename, 'wb') as out_file:
+        with urllib.request.urlopen(url) as response, open(self.save_path + self.data_filename, 'wb') as out_file:
             data = response.read()  # a `bytes` object
             out_file.write(data)
 
     def preprocess(self):
         print("Preprocessing CBMC data")
 
-        expression_data = pd.read_csv(self.save_path + filename, index_col=0, compression='gzip').T
+        expression_data = pd.read_csv(self.save_path + self.data_filename, index_col=0, compression='gzip').T
         # gene_names = expression_data.columns
 
         selected = np.std(expression_data.as_matrix(), axis=0).argsort()[-600:][::-1]
