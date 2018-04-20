@@ -16,3 +16,10 @@ def test_benchmark():
 def test_cortex():
     gene_dataset_train, gene_dataset_test = load_datasets("cortex")
     run_benchmarks(gene_dataset_train, gene_dataset_test, n_epochs=1)
+
+
+def test_cbmc():
+    gene_dataset_train, gene_dataset_test = load_datasets("cmbc")
+    run_benchmarks(gene_dataset_train, gene_dataset_test, n_epochs=1)
+
+test_cortex()
