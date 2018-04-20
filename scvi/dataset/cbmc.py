@@ -2,12 +2,9 @@ import os
 import numpy as np
 import urllib.request
 import scipy.sparse as sp_sparse
-from .dataset import GeneExpressionDataset
 import pandas as pd
 
-"""
-Without protein information. 
-"""
+from .dataset import GeneExpressionDataset
 
 
 class CbmcDataset(GeneExpressionDataset):
@@ -19,7 +16,8 @@ class CbmcDataset(GeneExpressionDataset):
         super(CbmcDataset, self).__init__([sp_sparse.csr_matrix(np.load(self.save_path + self.data_filename))])
 
     def download(self):
-        url = "https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE100866&format=file&file=GSE100866%5FCBMC%5F8K%5F13AB%5F10X%2DRNA%5Fumi%2Ecsv%2Egz"
+        url = "https://www.ncbi.nlm.nih.gov/geo/download/" + \
+              "?acc=GSE100866&format=file&file=GSE100866%5FCBMC%5F8K%5F13AB%5F10X%2DRNA%5Fumi%2Ecsv%2Egz"
         print("Downloading CBMC data")
 
         # Create the path to save the data
